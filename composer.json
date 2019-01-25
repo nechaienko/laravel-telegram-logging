@@ -1,0 +1,27 @@
+{
+  "name": "nechaienko/laravel-telegram-logging",
+  "type": "library",
+  "description": "Logging to Telegram using Laravel logging",
+  "version": "1.0.0",
+  "keywords": [
+    "laravel",
+    "logging",
+    "log",
+    "telegram"
+  ],
+  "authors": [
+    {
+      "name": "SergiiNechaienko",
+      "email": "sergii.nechaenko@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.1",
+    "illuminate/support": "~5.6"
+  },
+  "autoload": {
+    "psr-4": {
+      "Nechaienko\\MongodbLogging\\": "src"
+    }
+  }
+}
