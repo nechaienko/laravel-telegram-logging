@@ -16,7 +16,7 @@ class TelegramChat
     function __construct()
     {
         $this->telegramBotToken = env('TELEGRAM_BOT_TOKEN', null);
-        $this->telegramChatIds = explode(',', env('TELEGRAM_CHAT_IDS', ''));
+        $this->telegramChatIds = config('telegram.telegram_admin_ids');
     }
 
     /**
@@ -25,13 +25,13 @@ class TelegramChat
      */
     public function sendMessageLog(array $record): bool
     {
-        if (!isset($record['message']) || !$this->telegramBotToken || empty($this->telegramChatIds)) {
+        if (!isset($record['message']) || !$this->telegramBotToken || !$this->telegramChatIds) {
             return false;
         }
 
         $message = '<b>' . env('APP_NAME') . '</b>' . PHP_EOL
             . '<b>' . env('APP_ENV') . '</b>' . PHP_EOL
-            . '<i>Message:</i>' . PHP_EOL
+            . '<i>Error:</i>' . PHP_EOL
             . '<code>' . $record['message'] . '</code>';
 
         foreach ($this->telegramChatIds as $chatId) {
