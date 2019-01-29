@@ -28,7 +28,9 @@ class TelegramChat
         if (!isset($record['message']) || !$this->telegramBotToken || !$this->telegramChatIds) {
             return false;
         }
-        $message = '<b>' . env('APP_NAME') . '</b>' . PHP_EOL
+        $message = '<i>Application Name:</i>' . PHP_EOL
+            . '<b>' . env('APP_NAME') . '</b>' . PHP_EOL
+            . '<i>Environment:</i>' . PHP_EOL
             . '<b>' . env('APP_ENV') . '</b>' . PHP_EOL
             . '<i>Message:</i>' . PHP_EOL
             . '<code>' . $record['message'] . '</code>';

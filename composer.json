@@ -2,7 +2,7 @@
   "name": "nechaienko/laravel-telegram-logging",
   "type": "library",
   "description": "Logging to Telegram using Laravel logging",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "keywords": [
     "laravel",
     "logging",
