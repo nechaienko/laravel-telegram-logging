@@ -28,12 +28,18 @@ class TelegramChat
         if (!isset($record['message']) || !$this->telegramBotToken || !$this->telegramChatIds) {
             return false;
         }
+        $stacktrace = $record['context']['exception']->getTraceAsString();
+        if (2000 < strlen($stacktrace)) {
+            $stacktrace = substr($stacktrace, 0, 2000);
+        }
         $message = '<i>Application Name:</i>' . PHP_EOL
             . '<b>' . env('APP_NAME') . '</b>' . PHP_EOL
             . '<i>Environment:</i>' . PHP_EOL
             . '<b>' . env('APP_ENV') . '</b>' . PHP_EOL
             . '<i>Message:</i>' . PHP_EOL
-            . '<code>' . $record['message'] . '</code>';
+            . '<code>' . $record['message'] . '</code>' . PHP_EOL
+            . '<i>StackTrace:</i>' . PHP_EOL
+            . '<code>' . $stacktrace . '</code>';
 
         foreach ($this->telegramChatIds as $chatId) {
 
@@ -51,6 +57,7 @@ class TelegramChat
             curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
             curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
 
             curl_exec($ch);
             curl_close($ch);
