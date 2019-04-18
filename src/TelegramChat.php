@@ -22,16 +22,24 @@ class TelegramChat
     /**
      * @param array $record
      * @return bool
+     * @throws \ReflectionException
      */
     public function sendMessageLog(array $record): bool
     {
         if (!isset($record['message']) || !$this->telegramBotToken || !$this->telegramChatIds) {
             return false;
         }
+
         $stacktrace = $record['context']['exception']->getTraceAsString();
         if (2000 < strlen($stacktrace)) {
             $stacktrace = substr($stacktrace, 0, 2000);
         }
+
+        if ('PDOException' === (new \ReflectionClass($record['context']['exception']))->getShortName()
+            && 2002 === $record['context']['exception']->getCode()) {
+            $stacktrace = '-';
+        }
+
         $message = '<i>Application Name:</i>' . PHP_EOL
             . '<b>' . env('APP_NAME') . '</b>' . PHP_EOL
             . '<i>Environment:</i>' . PHP_EOL
