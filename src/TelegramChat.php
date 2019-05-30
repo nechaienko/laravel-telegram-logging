@@ -30,7 +30,11 @@ class TelegramChat
             return false;
         }
 
-        $stacktrace = $record['context']['exception']->getTraceAsString();
+        if (isset($record['context']['exception'])) {
+            $stacktrace = $record['context']['exception']->getTraceAsString() ?? '';
+        } else {
+            $stacktrace = '';
+        }
         if (2000 < strlen($stacktrace)) {
             $stacktrace = substr($stacktrace, 0, 2000);
         }
