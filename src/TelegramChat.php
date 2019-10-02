@@ -39,7 +39,8 @@ class TelegramChat
             $stacktrace = substr($stacktrace, 0, 2000);
         }
 
-        if ('PDOException' === (new \ReflectionClass($record['context']['exception']))->getShortName()
+        if (isset($record['context']['exception']) &&
+            'PDOException' === (new \ReflectionClass($record['context']['exception']))->getShortName()
             && 2002 === $record['context']['exception']->getCode()) {
             $stacktrace = '-';
         }
@@ -55,7 +56,7 @@ class TelegramChat
 
         foreach ($this->telegramChatIds as $chatId) {
 
-            $url = 'http://195.201.145.159/bot' . $this->telegramBotToken . '/sendMessage?'
+            $url = 'http://api.telegram.org/bot' . $this->telegramBotToken . '/sendMessage?'
                 . http_build_query([
                     'text' => $message,
                     'chat_id' => $chatId,
